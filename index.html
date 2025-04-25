@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <button id="add">Add USDT to MetaMask</button>
+
+<script>
+const token = {
+  address : 'TRPPsiYPa6S2TMYHAvMbR1t4L4pweHVsX1', // your ERC-20
+  symbol  : 'USDT',
+  decimals: 6,
+  image   : 'https://raw.githubusercontent.com/you/fake-usdt-logo/main/logo.png'
+};
+
+document.getElementById('add').onclick = async () => {
+  if (!window.ethereum) return alert('Please install MetaMask');
+  await ethereum.request({ method: 'eth_requestAccounts' });          // connect
+  const added = await ethereum.request({                               // prompt
+    method: 'wallet_watchAsset',
+    params: { type: 'ERC20', options: token }
+  });
+  alert(added ? 'Token added!' : 'User cancelled.');
+};
+</script>
+</body>
+</html>
